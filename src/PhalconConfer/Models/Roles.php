@@ -125,7 +125,8 @@ class Roles extends \Phalcon\Mvc\Model
      * Attach input Permission to the Role.
      * Return true on success.
      *
-     * @param  Permissions  $permission
+     * @param  Permissions $permission
+     *
      * @throws \RuntimeException
      * @throws \UnexpectedValueException
      *
@@ -147,12 +148,12 @@ class Roles extends \Phalcon\Mvc\Model
         try {
             $result = $this->save();
         } catch (\Exception $e) {
-            throw new \RuntimeException("Caught RuntimeException in ".__METHOD__.' at line '.__LINE__.': ' .$e->getMessage());
+            throw new \RuntimeException("Caught RuntimeException in " . __METHOD__ . ' at line ' . __LINE__ . ': ' . $e->getMessage());
         }
 
-        if(!$result) {
+        if (!$result) {
             $errorMessages = implode('. ', $this->getMessages());
-            throw new \UnexpectedValueException("Caught UnexpectedValueException in ".__METHOD__.' at line '.__LINE__.': $role ' . $permission->id . ' cannot be attached to user ' . $this->id . '. Error messages: ' . $errorMessages);
+            throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $permission->id . ' cannot be attached to user ' . $this->id . '. Error messages: ' . $errorMessages);
         }
 
         return true;
@@ -162,7 +163,8 @@ class Roles extends \Phalcon\Mvc\Model
      * Detach input input Permission to the Role.
      * Return true on success.
      *
-     * @param  Permissions  $permission
+     * @param  Permissions $permission
+     *
      * @throws \RuntimeException
      * @throws \UnexpectedValueException
      *
@@ -179,12 +181,12 @@ class Roles extends \Phalcon\Mvc\Model
                 try {
                     $result = $permissionPivot->delete();
                 } catch (\Exception $e) {
-                    throw new \RuntimeException("Caught RuntimeException in ".__METHOD__.' at line '.__LINE__.': ' .$e->getMessage());
+                    throw new \RuntimeException("Caught RuntimeException in " . __METHOD__ . ' at line ' . __LINE__ . ': ' . $e->getMessage());
                 }
 
-                if(!$result) {
+                if (!$result) {
                     $errorMessages = implode('. ', $this->getMessages());
-                    throw new \UnexpectedValueException("Caught UnexpectedValueException in ".__METHOD__.' at line '.__LINE__.': $role ' . $permission->id . ' cannot be detached from user ' . $this->id . '. Error messages: ' . $errorMessages);
+                    throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $permission->id . ' cannot be detached from user ' . $this->id . '. Error messages: ' . $errorMessages);
                 }
             }
         }
@@ -196,6 +198,7 @@ class Roles extends \Phalcon\Mvc\Model
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return Roles[]
      */
     public static function find($parameters = null)
@@ -207,6 +210,7 @@ class Roles extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return Roles
      */
     public static function findFirst($parameters = null)

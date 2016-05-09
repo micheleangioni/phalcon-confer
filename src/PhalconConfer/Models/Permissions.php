@@ -105,6 +105,7 @@ class Permissions extends \Phalcon\Mvc\Model
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return Permissions[]
      */
     public static function find($parameters = null)
@@ -116,6 +117,7 @@ class Permissions extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return Permissions
      */
     public static function findFirst($parameters = null)

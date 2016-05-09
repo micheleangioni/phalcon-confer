@@ -3,7 +3,6 @@
 namespace MicheleAngioni\PhalconConfer\Tests;
 
 use League\FactoryMuffin\FactoryMuffin;
-use MicheleAngioni\PhalconConfer\Models\Roles;
 
 class ModelsTest extends TestCase
 {
@@ -18,7 +17,7 @@ class ModelsTest extends TestCase
         // new FactoryMuffin(new ModelStore('save', 'delete'));
 
         // load your model definitions
-        static::$fm->loadFactories(__DIR__.'/factories');
+        static::$fm->loadFactories(__DIR__ . '/factories');
 
         parent::setUpBeforeClass();
     }
@@ -63,7 +62,7 @@ class ModelsTest extends TestCase
         $role = $roles::findFirst(["id = 2"]);
 
         $basePermissionsNumber = count($role->getPermissions());
-        
+
         $permissions = new \MicheleAngioni\PhalconConfer\Models\Permissions();
         $permission = $permissions::findFirst(["id = 1"]);
 

@@ -1,4 +1,9 @@
-# Phalcon Confer
+# Confer
+
+[![License](https://poser.pugx.org/michele-angioni/phalcon-confer/license)](https://packagist.org/packages/michele-angioni/phalcon-confer)
+[![Latest Stable Version](https://poser.pugx.org/michele-angioni/phalcon-confer/v/stable)](https://packagist.org/packages/michele-angioni/phalcon-confer)
+[![Latest Unstable Version](https://poser.pugx.org/michele-angioni/phalcon-confer/v/unstable)](https://packagist.org/packages/michele-angioni/phalcon-confer)
+[![Build Status](https://travis-ci.org/micheleangioni/phalcon-confer.svg)](https://travis-ci.org/micheleangioni/phalcon-confer)
 
 ## Introduction
 

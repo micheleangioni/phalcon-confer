@@ -9,7 +9,8 @@ trait ConferTrait
     /**
      * Check if the User has input Role.
      *
-     * @param  string  $name
+     * @param  string $name
+     *
      * @return bool
      */
     public function hasRole($name)
@@ -26,7 +27,8 @@ trait ConferTrait
     /**
      * Check if the has input Permission.
      *
-     * @param  string  $name
+     * @param  string $name
+     *
      * @return bool
      */
     public function can($name)
@@ -46,7 +48,8 @@ trait ConferTrait
      * Attach input Role to the User.
      * Return true on success.
      *
-     * @param  Roles  $role
+     * @param  Roles $role
+     *
      * @throws \RuntimeException
      * @throws \UnexpectedValueException
      *
@@ -68,12 +71,12 @@ trait ConferTrait
         try {
             $result = $this->save();
         } catch (\Exception $e) {
-            throw new \RuntimeException("Caught RuntimeException in ".__METHOD__.' at line '.__LINE__.': ' .$e->getMessage());
+            throw new \RuntimeException("Caught RuntimeException in " . __METHOD__ . ' at line ' . __LINE__ . ': ' . $e->getMessage());
         }
 
-        if(!$result) {
+        if (!$result) {
             $errorMessages = implode('. ', $this->getMessages());
-            throw new \UnexpectedValueException("Caught UnexpectedValueException in ".__METHOD__.' at line '.__LINE__.': $role ' . $role->id . ' cannot be attached to user ' . $this->id . '. Error messages: ' . $errorMessages);
+            throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $role->id . ' cannot be attached to user ' . $this->id . '. Error messages: ' . $errorMessages);
         }
 
         return true;
@@ -83,7 +86,8 @@ trait ConferTrait
      * Detach input Role from the User.
      * Return true on success.
      *
-     * @param  Roles  $role
+     * @param  Roles $role
+     *
      * @throws \RuntimeException
      * @throws \UnexpectedValueException
      *
@@ -100,12 +104,12 @@ trait ConferTrait
                 try {
                     $result = $rolePivot->delete();
                 } catch (\Exception $e) {
-                    throw new \RuntimeException("Caught RuntimeException in ".__METHOD__.' at line '.__LINE__.': ' .$e->getMessage());
+                    throw new \RuntimeException("Caught RuntimeException in " . __METHOD__ . ' at line ' . __LINE__ . ': ' . $e->getMessage());
                 }
 
-                if(!$result) {
+                if (!$result) {
                     $errorMessages = implode('. ', $this->getMessages());
-                    throw new \UnexpectedValueException("Caught UnexpectedValueException in ".__METHOD__.' at line '.__LINE__.': $role ' . $role->id . ' cannot be detached from user ' . $this->id . '. Error messages: ' . $errorMessages);
+                    throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $role->id . ' cannot be detached from user ' . $this->id . '. Error messages: ' . $errorMessages);
                 }
             }
         }

@@ -18,7 +18,7 @@ class TraitTest extends TestCase
         // new FactoryMuffin(new ModelStore('save', 'delete'));
 
         // load your model definitions
-        static::$fm->loadFactories(__DIR__.'/factories');
+        static::$fm->loadFactories(__DIR__ . '/factories');
 
         parent::setUpBeforeClass();
     }

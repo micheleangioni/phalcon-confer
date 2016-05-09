@@ -129,54 +129,54 @@ abstract class TestCase extends PhalconTestCase
             'roles',
             null,
             [
-                'columns' => array(
+                'columns' => [
                     new Column(
                         'id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'autoIncrement' => true,
                             'size' => 10,
                             'first' => true
-                        )
+                        ]
                     ),
                     new Column(
                         'name',
-                        array(
+                        [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 255,
                             'after' => 'id'
-                        )
+                        ]
                     ),
                     new Column(
                         'created_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'name'
-                        )
+                        ]
                     ),
                     new Column(
                         'updated_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'created_at'
-                        )
+                        ]
                     )
-                ),
-                'indexes' => array(
-                    new Index('PRIMARY', array('id'), 'PRIMARY'),
-                    new Index('name_UNIQUE', array('name'), 'UNIQUE')
-                ),
-                'options' => array(
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('name_UNIQUE', ['name'], 'UNIQUE')
+                ],
+                'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
                     'AUTO_INCREMENT' => '4',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
-                ),
+                ],
             ]
         );
 
@@ -184,54 +184,54 @@ abstract class TestCase extends PhalconTestCase
             'permissions',
             null,
             [
-                'columns' => array(
+                'columns' => [
                     new Column(
                         'id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'autoIncrement' => true,
                             'size' => 10,
                             'first' => true
-                        )
+                        ]
                     ),
                     new Column(
                         'name',
-                        array(
+                        [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 255,
                             'after' => 'id'
-                        )
+                        ]
                     ),
                     new Column(
                         'created_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'name'
-                        )
+                        ]
                     ),
                     new Column(
                         'updated_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'created_at'
-                        )
+                        ]
                     )
-                ),
-                'indexes' => array(
-                    new Index('PRIMARY', array('id'), 'PRIMARY'),
-                    new Index('name_UNIQUE', array('name'), 'UNIQUE')
-                ),
-                'options' => array(
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('name_UNIQUE', ['name'], 'UNIQUE')
+                ],
+                'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
                     'AUTO_INCREMENT' => '3',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
-                ),
+                ],
             ]
         );
 
@@ -239,64 +239,64 @@ abstract class TestCase extends PhalconTestCase
             'users_roles',
             null,
             [
-                'columns' => array(
+                'columns' => [
                     new Column(
                         'id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'autoIncrement' => true,
                             'size' => 10,
                             'first' => true
-                        )
+                        ]
                     ),
                     new Column(
                         'users_id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'size' => 10,
                             'after' => 'id'
-                        )
+                        ]
                     ),
                     new Column(
                         'roles_id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'size' => 10,
                             'after' => 'users_id'
-                        )
+                        ]
                     ),
                     new Column(
                         'created_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'roles_id'
-                        )
+                        ]
                     ),
                     new Column(
                         'updated_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'created_at'
-                        )
+                        ]
                     )
-                ),
-                'indexes' => array(
-                    new Index('PRIMARY', array('id'), 'PRIMARY')
-                ),
-                'options' => array(
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                ],
+                'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
                     'AUTO_INCREMENT' => '6',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
-                ),
+                ],
             ]
         );
 
@@ -304,64 +304,64 @@ abstract class TestCase extends PhalconTestCase
             'roles_permissions',
             null,
             [
-                'columns' => array(
+                'columns' => [
                     new Column(
                         'id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'autoIncrement' => true,
                             'size' => 10,
                             'first' => true
-                        )
+                        ]
                     ),
                     new Column(
                         'roles_id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'size' => 10,
                             'after' => 'id'
-                        )
+                        ]
                     ),
                     new Column(
                         'permissions_id',
-                        array(
+                        [
                             'type' => Column::TYPE_INTEGER,
                             'unsigned' => true,
                             'notNull' => true,
                             'size' => 10,
                             'after' => 'roles_id'
-                        )
+                        ]
                     ),
                     new Column(
                         'created_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'permissions_id'
-                        )
+                        ]
                     ),
                     new Column(
                         'updated_at',
-                        array(
+                        [
                             'type' => Column::TYPE_TIMESTAMP,
                             'size' => 1,
                             'after' => 'created_at'
-                        )
+                        ]
                     )
-                ),
-                'indexes' => array(
-                    new Index('PRIMARY', array('id'), 'PRIMARY')
-                ),
-                'options' => array(
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                ],
+                'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
                     'AUTO_INCREMENT' => '4',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
-                ),
+                ],
             ]
         );
     }
@@ -399,8 +399,8 @@ abstract class TestCase extends PhalconTestCase
 
         $usersRole = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
         $usersRole->save([
-           'users_id' => $user1->id,
-           'roles_id' => $role1->id
+            'users_id' => $user1->id,
+            'roles_id' => $role1->id
         ]);
 
         $usersRole = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
@@ -467,6 +467,7 @@ class Users extends \MicheleAngioni\PhalconConfer\Models\AbstractConferModel
     public function setEmail($email)
     {
         $this->email = $email;
+
         return true;
     }
 
@@ -478,6 +479,7 @@ class Users extends \MicheleAngioni\PhalconConfer\Models\AbstractConferModel
     public function setPassword($password)
     {
         $this->password = $password;
+
         return true;
     }
 

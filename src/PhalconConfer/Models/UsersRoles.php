@@ -56,6 +56,7 @@ class UsersRoles extends \Phalcon\Mvc\Model
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return UsersRoles[]
      */
     public static function find($parameters = null)
@@ -67,6 +68,7 @@ class UsersRoles extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
+     *
      * @return UsersRoles
      */
     public static function findFirst($parameters = null)
