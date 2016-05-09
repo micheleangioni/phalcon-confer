@@ -71,63 +71,81 @@ class Users extends AbstractConferModel
 
 Creating a new Role is simple and can be done as a standard Phalcon model
 
-    $role = new MicheleAngioni\PhalconConfer\Models\Roles();
-    $role->save([
-        'name' => 'Admin'
-    ]);
+```php
+$role = new MicheleAngioni\PhalconConfer\Models\Roles();
+$role->save([
+    'name' => 'Admin'
+]);
+```
     
 #### Creating a new Permission
 
 Creating a new Permission is done in the same way of a Role
 
-    $permission = new MicheleAngioni\PhalconConfer\Models\Permissions();
-    $permission->save([
-        'name' => 'manage_roles'
-    ]);
+```php
+$permission = new MicheleAngioni\PhalconConfer\Models\Permissions();
+$permission->save([
+    'name' => 'manage_roles'
+]);
+```
     
 #### Assigning a Permission to a Role
 
 Actually, assigning a Permission to a Role requires to use the Phalcon ORM
 
-    $newPermission = [$permission];
-    $role->permissions = $newPermission;
-    $role->save();
+```php
+$newPermission = [$permission];
+$role->permissions = $newPermission;
+$role->save();
+```
 
 #### Retrieving all Permission Roles
 
 Thanks to the Phalcon ORM, we can immediatly retrieve all Permission from a Role
 
-    $permissions = $role->getPermissions();
+```php
+$permissions = $role->getPermissions();
+```
 
 #### Assigning a Role to a User
 
 Thanks to the ConferTrait, managing roles is extremely simple with Confer
 
-    $user->attachRole($role);
+```php
+$user->attachRole($role);
+```
 
 #### Removing a Role from a User
 
 In a way similar to the assignment, we can remove it
 
-    $user->detachRole($role);
+```php
+$user->detachRole($role);
+```
 
 #### Retrieving all User Roles
 
 Again, thanks to the Phalcon ORM, we can immediatly retrieve all Roles from a User
 
-    $roles = $user->getRoles();
+```php
+$roles = $user->getRoles();
+```
 
 #### Checking for a Role
 
 Checking is a User has a specific Role is straightforward
 
-    $user->hasRole($roleName);
+```php
+$user->hasRole($roleName);
+```
 
 #### Checking for a Permission
 
 Even checking for a specific Permission is super easy
 
-    $user->can($permissionName);
+```php
+$user->can($permissionName);
+```
 
 ## Contribution guidelines
 
