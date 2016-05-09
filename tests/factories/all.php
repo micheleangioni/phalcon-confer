@@ -4,11 +4,15 @@ namespace Learnph\Tests;
 
 use League\FactoryMuffin\Faker\Facade as Faker;
 
-$fm->define('MicheleAngioni\PhalconAuth\Tests\Users')->setDefinitions([
-    'confirmation_code'  => Faker::md5(),
-    //'confirmed'          => Faker::boolean(),
-    'banned'    => 0,
+$fm->define('MicheleAngioni\PhalconConfer\Tests\Users')->setDefinitions([
     'email'    => Faker::email(),
-    'password' => Faker::password(),
-    'remember_token' => Faker::regexify('[A-Z0-9._%+-]{20,40}')
+    'password' => Faker::password()
+]);
+
+$fm->define('MicheleAngioni\PhalconConfer\Models\Roles')->setDefinitions([
+    'name'  => Faker::username()
+]);
+
+$fm->define('MicheleAngioni\PhalconConfer\Models\Permissions')->setDefinitions([
+    'name'  => Faker::username()
 ]);

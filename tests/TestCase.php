@@ -110,47 +110,6 @@ abstract class TestCase extends PhalconTestCase
                             'size' => 60,
                             'after' => 'email'
                         ]
-                    ),
-                    new Column(
-                        'confirmation_code',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => true,
-                            'size' => 60,
-                            'after' => 'password'
-                        ]
-                    ),
-                    new Column(
-                        'confirmed',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'size' => 1,
-                            'after' => 'confirmation_code'
-                        ]
-                    ),
-                    new Column(
-                        'banned',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'size' => 1,
-                            'after' => 'confirmed'
-                        ]
-                    ),
-                    new Column(
-                        'remember_token',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'size' => 20,
-                            'after' => 'confirmed'
-                        ]
-                    ),
-                    new Column(
-                        'text',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'size' => 30,
-                            'after' => 'remember_token'
-                        ]
                     )
                 ],
                 'indexes' => [
@@ -405,20 +364,56 @@ abstract class TestCase extends PhalconTestCase
                 ),
             ]
         );
-
-
-
-
     }
 
     protected function seedDatabase($connection)
     {
+        // Create Users, Roles and Permissions records
+        $user1 = static::$fm->create('MicheleAngioni\PhalconConfer\Tests\Users');
+        $user2 = static::$fm->create('MicheleAngioni\PhalconConfer\Tests\Users');
+        $role1 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Roles');
+        $role2 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Roles');
+        $permission1 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Permissions');
+        $permission2 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Permissions');
 
+        // Create the relationships between them
+
+        $rolesPermissions = new \MicheleAngioni\PhalconConfer\Models\RolesPermissions();
+
+        $rolesPermissions->save([
+            'roles_id' => $role1->id,
+            'permissions_id' => $permission1->id
+        ]);
+        $rolesPermissions->save([
+            'roles_id' => $role1->id,
+            'permissions_id' => $permission2->id
+        ]);
+
+        $rolesPermissions->save([
+            'roles_id' => $role2->id,
+            'permissions_id' => $permission2->id
+        ]);
+
+        $usersRole = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
+
+        $usersRole->save([
+           'users_id' => $user1->id,
+           'roles_id' => $role1->id
+        ]);
+
+        $usersRole->save([
+            'users_id' => $user2->id,
+            'roles_id' => $role2->id
+        ]);
     }
 
     protected function dropTables($connection)
     {
         $connection->dropTable('users');
+        $connection->dropTable('roles');
+        $connection->dropTable('permissions');
+        $connection->dropTable('users_roles');
+        $connection->dropTable('roles_permissions');
     }
 
     protected function tearDown()
