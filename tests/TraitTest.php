@@ -41,4 +41,27 @@ class TraitTest extends TestCase
         $user = $users::findFirst(["id = 1"]);
         $this->assertEquals($baseRolesNumber, count($user->getRoles()));
     }
+
+    public function testHasRole()
+    {
+        $users = new Users();
+        $user = $users::findFirst();
+
+        $role = $user->getRoles()->getFirst();
+
+        $this->assertTrue($user->hasRole($role->getName()));
+        $this->assertFalse($user->hasRole('Mod'));
+    }
+
+    public function testCan()
+    {
+        $users = new Users();
+        $user = $users::findFirst();
+
+        $role = $user->getRoles()->getFirst();
+        $permission = $role->getPermissions()->getFirst();
+
+        $this->assertTrue($user->can($permission->getName()));
+        $this->assertFalse($user->can('format_the_hd'));
+    }
 }

@@ -18,50 +18,52 @@ From your document root, just run `phalcon migration run --migrations=vendor/mic
 Now let's say you have a `MyApp\Users` model you want to add roles to. 
 It just need to extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferModel` and use the `MicheleAngioni\PhalconConfer\ConferTrait` like so:
 
-    <?php
-    
-    namespace MyApp;
-    
-    use MicheleAngioni\PhalconConfer\ConferTrait;
-    use MicheleAngioni\PhalconConfer\Models\AbstractConferModel;
+```php
+<?php
 
-    class Users extends AbstractConferModel
+namespace MyApp;
+
+use MicheleAngioni\PhalconConfer\ConferTrait;
+use MicheleAngioni\PhalconConfer\Models\AbstractConferModel;
+
+class Users extends AbstractConferModel
+{
+    use ConferTrait;
+
+    protected $id;
+
+    protected $email;
+
+    protected $password;
+
+    public function getId()
     {
-        use ConferTrait;
-    
-        protected $id;
-    
-        protected $email;
-    
-        protected $password;
-    
-        public function getId()
-        {
-            return $this->id;
-        }
-    
-        public function getEmail()
-        {
-            return $this->email;
-        }
-    
-        public function setEmail($email)
-        {
-            $this->email = $email;
-            return true;
-        }
-    
-        public function getPassword()
-        {
-            return $this->password;
-        }
-    
-        public function setPassword($password)
-        {
-            $this->password = $password;
-            return true;
-        }
+        return $this->id;
     }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return true;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return true;
+    }
+}
+```
 
 ### Roles and Permission Management    
     
