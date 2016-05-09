@@ -5,7 +5,7 @@ namespace MicheleAngioni\PhalconConfer\Tests;
 use League\FactoryMuffin\FactoryMuffin;
 use MicheleAngioni\PhalconConfer\Models\Roles;
 
-class ModelTest extends TestCase
+class TraitTest extends TestCase
 {
     protected static $fm;
 
@@ -23,18 +23,22 @@ class ModelTest extends TestCase
         parent::setUpBeforeClass();
     }
 
-    public function testUserRelationships()
+    public function testAttachAndDetach()
     {
+        $roles = new \MicheleAngioni\PhalconConfer\Models\Roles();
+        $role = $roles::findFirst(["id = 2"]);
+
         $users = new Users();
         $user = $users::findFirst(["id = 1"]);
 
-        $this->assertEquals(1, count($user->getRoles()));
-    }
+        $baseRolesNumber = count(count($user->getRoles()));
 
-    public function testRolesRelationships()
-    {
-        $roles = new \MicheleAngioni\PhalconConfer\Models\Roles();
-        $role = $roles::findFirst();
-        $this->assertEquals(2, count($role->getPermissions()));
+        $user->attachRole($role);
+        $user = $users::findFirst(["id = 1"]);
+        $this->assertEquals($baseRolesNumber + 1, count($user->getRoles()));
+
+        $user->detachRole($role);
+        $user = $users::findFirst(["id = 1"]);
+        $this->assertEquals($baseRolesNumber, count($user->getRoles()));
     }
 }

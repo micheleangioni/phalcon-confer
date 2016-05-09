@@ -369,6 +369,7 @@ abstract class TestCase extends PhalconTestCase
     protected function seedDatabase($connection)
     {
         // Create Users, Roles and Permissions records
+
         $user1 = static::$fm->create('MicheleAngioni\PhalconConfer\Tests\Users');
         $user2 = static::$fm->create('MicheleAngioni\PhalconConfer\Tests\Users');
         $role1 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Roles');
@@ -379,28 +380,30 @@ abstract class TestCase extends PhalconTestCase
         // Create the relationships between them
 
         $rolesPermissions = new \MicheleAngioni\PhalconConfer\Models\RolesPermissions();
-
         $rolesPermissions->save([
             'roles_id' => $role1->id,
             'permissions_id' => $permission1->id
         ]);
+
+        $rolesPermissions = new \MicheleAngioni\PhalconConfer\Models\RolesPermissions();
         $rolesPermissions->save([
             'roles_id' => $role1->id,
             'permissions_id' => $permission2->id
         ]);
 
+        $rolesPermissions = new \MicheleAngioni\PhalconConfer\Models\RolesPermissions();
         $rolesPermissions->save([
             'roles_id' => $role2->id,
             'permissions_id' => $permission2->id
         ]);
 
         $usersRole = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
-
         $usersRole->save([
            'users_id' => $user1->id,
            'roles_id' => $role1->id
         ]);
 
+        $usersRole = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
         $usersRole->save([
             'users_id' => $user2->id,
             'roles_id' => $role2->id
@@ -439,4 +442,43 @@ abstract class TestCase extends PhalconTestCase
             throw new \PHPUnit_Framework_IncompleteTestError('Please run parent::setUp().');
         }
     }
+}
+
+class Users extends \MicheleAngioni\PhalconConfer\Models\AbstractConferModel
+{
+    use \MicheleAngioni\PhalconConfer\ConferTrait;
+
+    protected $id;
+
+    protected $email;
+
+    protected $password;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return true;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return true;
+    }
+
 }
