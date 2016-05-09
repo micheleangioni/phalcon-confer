@@ -5,7 +5,7 @@ namespace MicheleAngioni\PhalconConfer\Tests;
 use League\FactoryMuffin\FactoryMuffin;
 use MicheleAngioni\PhalconConfer\Models\Roles;
 
-class ModelTest extends TestCase
+class ModelsTest extends TestCase
 {
     protected static $fm;
 
@@ -37,4 +37,24 @@ class ModelTest extends TestCase
         $role = $roles::findFirst();
         $this->assertEquals(2, count($role->getPermissions()));
     }
+
+    public function testDelete()
+    {
+        $rolesPermissions = new \MicheleAngioni\PhalconConfer\Models\RolesPermissions();
+        $rolesPermissionsNumberBefore = count($rolesPermissions->find());
+
+        $userRoles = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
+        $userRolesNumberBefore = count($userRoles->find());
+
+        $roles = new \MicheleAngioni\PhalconConfer\Models\Roles();
+        $role = $roles::findFirst();
+        $role->delete();
+
+        $rolesPermissionsNumberAfter = count($rolesPermissions->find());
+        $userRolesNumberAfter = count($userRoles->find());
+
+        $this->assertLessThan($rolesPermissionsNumberBefore, $rolesPermissionsNumberAfter);
+        $this->assertLessThan($userRolesNumberBefore, $userRolesNumberAfter);
+    }
+
 }

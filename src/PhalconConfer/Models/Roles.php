@@ -92,11 +92,20 @@ class Roles extends \Phalcon\Mvc\Model
             ['alias' => 'permissions']
         );
 
+        // The permissionsPivot relationship is used only when deleting a Role
         $this->hasMany(
             'id',
             'MicheleAngioni\PhalconConfer\Models\RolesPermissions',
             'roles_id',
             ['alias' => 'permissionsPivot']
+        );
+
+        // The usersPivot relationship is used only when deleting a Role
+        $this->hasMany(
+            'id',
+            'MicheleAngioni\PhalconConfer\Models\UsersRoles',
+            'roles_id',
+            ['alias' => 'usersPivot']
         );
     }
 
@@ -106,6 +115,7 @@ class Roles extends \Phalcon\Mvc\Model
     public function delete()
     {
         $this->getPermissionsPivot()->delete();
+        $this->getUsersPivot()->delete();
 
         return parent::delete();
     }
