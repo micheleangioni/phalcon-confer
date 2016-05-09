@@ -7,7 +7,9 @@
 
 ## Introduction
 
-Phalcon Confer, or simpler Confer, empowers your app of Roles and Permissions management.   
+Phalcon Confer, or simply Confer, empowers your app of Roles and Permissions management.   
+
+Confer has been highly inspired by the Laravel package [Entrust](https://github.com/Zizaco/entrust). 
 
 ## Installation
  

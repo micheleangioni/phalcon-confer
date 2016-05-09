@@ -59,6 +59,16 @@ class Roles extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Set the Role name.
+     *
+     * @return string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * Return the created at date.
      *
      * @return string

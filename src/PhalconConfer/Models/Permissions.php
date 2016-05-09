@@ -59,6 +59,16 @@ class Permissions extends \Phalcon\Mvc\Model
     }
 
     /**
+     * Set the Permission name.
+     *
+     * @return string
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * Return the created at date.
      *
      * @return string
