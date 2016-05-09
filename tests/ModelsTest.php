@@ -57,4 +57,23 @@ class ModelsTest extends TestCase
         $this->assertLessThan($userRolesNumberBefore, $userRolesNumberAfter);
     }
 
+    public function testAttachAndDetachPermission()
+    {
+        $roles = new \MicheleAngioni\PhalconConfer\Models\Roles();
+        $role = $roles::findFirst(["id = 2"]);
+
+        $basePermissionsNumber = count($role->getPermissions());
+        
+        $permissions = new \MicheleAngioni\PhalconConfer\Models\Permissions();
+        $permission = $permissions::findFirst(["id = 1"]);
+
+        $role->attachPermission($permission);
+        $role = $roles::findFirst(["id = 2"]);
+        $this->assertEquals($basePermissionsNumber + 1, count($role->getPermissions()));
+
+        $role->detachPermission($permission);
+        $role = $roles::findFirst(["id = 2"]);
+        $this->assertEquals($basePermissionsNumber, count($role->getPermissions()));
+    }
+
 }

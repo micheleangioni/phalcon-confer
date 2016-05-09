@@ -91,12 +91,18 @@ $permission->save([
     
 #### Assigning a Permission to a Role
 
-Actually, assigning a Permission to a Role requires to use the Phalcon ORM
+Assigning a Permission to a Role is straightforward
 
 ```php
-$newPermission = [$permission];
-$role->permissions = $newPermission;
-$role->save();
+$role->attachPermission($permission);
+```
+
+#### Removing a Permission from a Role
+
+Same as before, removing a Permission from a Role is achieved with a single command
+
+```php
+$role->detachPermission($permission);
 ```
 
 #### Retrieving all Permission Roles

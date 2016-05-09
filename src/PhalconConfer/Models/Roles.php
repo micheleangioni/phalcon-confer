@@ -120,6 +120,78 @@ class Roles extends \Phalcon\Mvc\Model
         return parent::delete();
     }
 
+
+    /**
+     * Attach input Permission to the Role.
+     * Return true on success.
+     *
+     * @param  Permissions  $permission
+     * @throws \RuntimeException
+     * @throws \UnexpectedValueException
+     *
+     * @return bool
+     */
+    public function attachPermission(Permissions $permission)
+    {
+        // Check if input Permission is already attached to the Role
+
+        foreach ($this->getPermissions() as $rolePermission) {
+            if ($rolePermission->id == $permission->id) {
+                return true;
+            }
+        }
+
+        $newPermission = [$permission];
+        $this->permissions = $newPermission;
+
+        try {
+            $result = $this->save();
+        } catch (\Exception $e) {
+            throw new \RuntimeException("Caught RuntimeException in ".__METHOD__.' at line '.__LINE__.': ' .$e->getMessage());
+        }
+
+        if(!$result) {
+            $errorMessages = implode('. ', $this->getMessages());
+            throw new \UnexpectedValueException("Caught UnexpectedValueException in ".__METHOD__.' at line '.__LINE__.': $role ' . $permission->id . ' cannot be attached to user ' . $this->id . '. Error messages: ' . $errorMessages);
+        }
+
+        return true;
+    }
+
+    /**
+     * Detach input input Permission to the Role.
+     * Return true on success.
+     *
+     * @param  Permissions  $permission
+     * @throws \RuntimeException
+     * @throws \UnexpectedValueException
+     *
+     * @return bool
+     */
+    public function detachPermission(Permissions $permission)
+    {
+        // Check if input Permission is attached to the Role
+
+        $permissions = $this->getPermissionsPivot();
+
+        foreach ($permissions as $permissionPivot) {
+            if ($permissionPivot->getPermissionsId() == $permission->id) {
+                try {
+                    $result = $permissionPivot->delete();
+                } catch (\Exception $e) {
+                    throw new \RuntimeException("Caught RuntimeException in ".__METHOD__.' at line '.__LINE__.': ' .$e->getMessage());
+                }
+
+                if(!$result) {
+                    $errorMessages = implode('. ', $this->getMessages());
+                    throw new \UnexpectedValueException("Caught UnexpectedValueException in ".__METHOD__.' at line '.__LINE__.': $role ' . $permission->id . ' cannot be detached from user ' . $this->id . '. Error messages: ' . $errorMessages);
+                }
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Allows to query a set of records that match the specified conditions
      *

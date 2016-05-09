@@ -31,7 +31,7 @@ class TraitTest extends TestCase
         $users = new Users();
         $user = $users::findFirst(["id = 1"]);
 
-        $baseRolesNumber = count(count($user->getRoles()));
+        $baseRolesNumber = count($user->getRoles());
 
         $user->attachRole($role);
         $user = $users::findFirst(["id = 1"]);

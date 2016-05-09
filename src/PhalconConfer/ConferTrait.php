@@ -43,7 +43,7 @@ trait ConferTrait
     }
 
     /**
-     * Attack input Role to the User.
+     * Attach input Role to the User.
      * Return true on success.
      *
      * @param  Roles  $role
