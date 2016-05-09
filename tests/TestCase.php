@@ -1,6 +1,6 @@
 <?php
 
-namespace MicheleAngioni\PhalconAuth\Tests;
+namespace MicheleAngioni\PhalconConfer\Tests;
 
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
@@ -165,6 +165,250 @@ abstract class TestCase extends PhalconTestCase
                 ]
             ]
         );
+
+        $connection->createTable(
+            'roles',
+            null,
+            [
+                'columns' => array(
+                    new Column(
+                        'id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        )
+                    ),
+                    new Column(
+                        'name',
+                        array(
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 255,
+                            'after' => 'id'
+                        )
+                    ),
+                    new Column(
+                        'created_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'name'
+                        )
+                    ),
+                    new Column(
+                        'updated_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'created_at'
+                        )
+                    )
+                ),
+                'indexes' => array(
+                    new Index('PRIMARY', array('id'), 'PRIMARY'),
+                    new Index('name_UNIQUE', array('name'), 'UNIQUE')
+                ),
+                'options' => array(
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'AUTO_INCREMENT' => '4',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ),
+            ]
+        );
+
+        $connection->createTable(
+            'permissions',
+            null,
+            [
+                'columns' => array(
+                    new Column(
+                        'id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        )
+                    ),
+                    new Column(
+                        'name',
+                        array(
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 255,
+                            'after' => 'id'
+                        )
+                    ),
+                    new Column(
+                        'created_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'name'
+                        )
+                    ),
+                    new Column(
+                        'updated_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'created_at'
+                        )
+                    )
+                ),
+                'indexes' => array(
+                    new Index('PRIMARY', array('id'), 'PRIMARY'),
+                    new Index('name_UNIQUE', array('name'), 'UNIQUE')
+                ),
+                'options' => array(
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'AUTO_INCREMENT' => '3',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ),
+            ]
+        );
+
+        $connection->createTable(
+            'users_roles',
+            null,
+            [
+                'columns' => array(
+                    new Column(
+                        'id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        )
+                    ),
+                    new Column(
+                        'users_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'id'
+                        )
+                    ),
+                    new Column(
+                        'roles_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'users_id'
+                        )
+                    ),
+                    new Column(
+                        'created_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'roles_id'
+                        )
+                    ),
+                    new Column(
+                        'updated_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'created_at'
+                        )
+                    )
+                ),
+                'indexes' => array(
+                    new Index('PRIMARY', array('id'), 'PRIMARY')
+                ),
+                'options' => array(
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'AUTO_INCREMENT' => '6',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ),
+            ]
+        );
+
+        $connection->createTable(
+            'roles_permissions',
+            null,
+            [
+                'columns' => array(
+                    new Column(
+                        'id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        )
+                    ),
+                    new Column(
+                        'roles_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'id'
+                        )
+                    ),
+                    new Column(
+                        'permissions_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'roles_id'
+                        )
+                    ),
+                    new Column(
+                        'created_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'permissions_id'
+                        )
+                    ),
+                    new Column(
+                        'updated_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'created_at'
+                        )
+                    )
+                ),
+                'indexes' => array(
+                    new Index('PRIMARY', array('id'), 'PRIMARY')
+                ),
+                'options' => array(
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'AUTO_INCREMENT' => '4',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ),
+            ]
+        );
+
+
+
+
     }
 
     protected function seedDatabase($connection)
