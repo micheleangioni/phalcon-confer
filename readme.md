@@ -160,6 +160,116 @@ Even checking for a specific Permission is super easy
 $user->can($permissionName);
 ```
 
+### Middlewares
+
+Once you have set your own Roles and Permission, it's likely you want to protect some of your routes. 
+The simplest way to achieve that is to use the Match Callback feature of the Phalcon Router. 
+You can easily write your custom RolesMiddleware or you the Confer one.
+
+#### Custom Match Callback
+
+Let's build a custom RolesMiddleware skeleton so you can easily add it to your application
+
+```php
+<?php
+
+namespace MyApp;
+
+use Phalcon\Http\Response;
+use Phalcon\Mvc\User\Plugin;
+
+class RolesMiddleware extends Plugin
+{
+    /**
+     * The Role name.
+     *
+     * @var string
+     */
+    protected $roleName;
+
+    /**
+     * The uri the User will be redirected to if he/she has not the required Role.
+     *
+     * @var string|null
+     */
+    protected $callbackUri;
+
+    function __construct($roleName, $callbackUri = null)
+    {
+        $this->roleName = $roleName;
+
+        $this->callbackUri = $callbackUri;
+    }
+
+    /**
+     * Check if there is an Authenticated User and if he/she has the required Role.
+     *
+     * @return bool
+     */
+    public function check()
+    {
+        // 1) Check if a User if currently authenticated. You can do this with your own auth service or however you prefer
+           
+        [...]  // Let's say we have a $user object which can be null, false or an instance of MyApp\Users
+        
+        // 2) Check if an authenticated User has been found
+
+        if (!$user) {
+            // The User is not authenticated, return false or redirect to callbackUri
+            if ($this->callbackUri) {
+                $response = new Response();
+                return $response->redirect($this->callbackUri);
+            } else {
+                return false;
+            }
+        }
+
+        // 3) We have the authenticated User. Check if he/she has the required role
+
+        if(!$user->hasRole($this->roleName)) {
+            // The User has not the required role, return false or redirect to callbackUri
+            if ($this->callbackUri) {
+                $response = new Response();
+                return $response->redirect($this->callbackUri);
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+```
+
+Now that we have our RolesMiddleware, just add it to the router and check if the user has the `'Admin'` Role
+
+```php
+$router->addGet('/super-private-route', [
+    'module' => 'web',
+    'controller' => 'secret',
+    'action' => 'index'
+])->beforeMatch([new \MyApp\RolesMiddleware('DEV', '/homepage'), 'check']);
+```
+
+That's it. If the User hasn't the required Role, he/she will get a 404 error.
+
+#### Built in RolesMiddleware
+
+Conferm comes with an own RolesMiddleware out of the box.
+However, in order to use it, the user authentication must be handled by [Phalcon Auth](https://github.com/micheleangioni/phalcon-auth).
+
+Phalcon Auth allow you to easily retrieve the authenticated user by just calling `$auth->getAuth()`.
+
+If you are using Phalcon Auth to handle your authentication, adding the Confer RolesMiddleware is straightforward
+
+```php
+$router->addGet('/super-private-route', [
+    'module' => 'web',
+    'controller' => 'secret',
+    'action' => 'index'
+])->beforeMatch([new \MicheleAngioni\PhalconConfer\Middlewares('DEV', '/homepage'), 'check']);
+```
+
 ## Contribution guidelines
 
 Confer follows PSR-1, PSR-2 and PSR-4 PHP coding standards, and semantic versioning.
