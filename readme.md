@@ -13,7 +13,7 @@ Confer has been highly inspired by the Laravel package [Entrust](https://github.
 
 ## Installation
  
-Confer can be installed through Composer, just include `"michele-angioni/phalcon-confer": "dev-master"` to your composer.json and run `composer update` or `composer install`.
+Confer can be installed through Composer, just include `"michele-angioni/phalcon-confer": "~0.1"` to your composer.json and run `composer update` or `composer install`.
 
 ## Usage
 
@@ -253,7 +253,7 @@ $router->addGet('/super-private-route', [
 
 That's it. If the User hasn't the required Role, he/she will get a 404 error.
 
-#### Built in RolesMiddleware
+#### Confer RolesMiddleware
 
 Conferm comes with an own RolesMiddleware out of the box.
 However, in order to use it, the user authentication must be handled by [Phalcon Auth](https://github.com/micheleangioni/phalcon-auth).
