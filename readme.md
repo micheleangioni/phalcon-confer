@@ -9,20 +9,24 @@
 
 Phalcon Confer, or simply Confer, empowers your app of Roles and Permissions management.   
 
+Either Users or User Teams can receive new Roles.
+
 Confer has been highly inspired by the Laravel package [Entrust](https://github.com/Zizaco/entrust). 
 
 ## Installation
  
-Confer can be installed through Composer, just include `"michele-angioni/phalcon-confer": "~0.1"` to your composer.json and run `composer update` or `composer install`.
+Confer can be installed through Composer, just include `"michele-angioni/phalcon-confer": "~0.2"` to your composer.json and run `composer update` or `composer install`.
+
+Then you must run the Confer migrations. 
+For this, you need to have installed the [Phalcon Dev Tools](https://github.com/phalcon/phalcon-devtools).
+
+From your Phalcon document root, just run `phalcon migration run --migrations=vendor/michele-angioni/phalcon-confer/migrations` .
 
 ## Usage
 
-First of all you must run the Confer migrations. 
-For this, you need to have installed the [Phalcon Dev Tools](https://github.com/phalcon/phalcon-devtools).
+### Empowering Users
 
-From your document root, just run `phalcon migration run --migrations=vendor/michele-angioni/phalcon-confer/migrations` .
-
-Now let's say you have a `MyApp\Users` model you want to add roles to. 
+Let's say you have a `MyApp\Users` model you want to add roles to. 
 It just need to extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferModel` and use the `MicheleAngioni\PhalconConfer\ConferTrait` like so:
 
 ```php
@@ -56,7 +60,6 @@ class Users extends AbstractConferModel
     public function setEmail($email)
     {
         $this->email = $email;
-        return true;
     }
 
     public function getPassword()
@@ -67,7 +70,46 @@ class Users extends AbstractConferModel
     public function setPassword($password)
     {
         $this->password = $password;
-        return true;
+    }
+}
+```
+
+### Empowering Teams
+
+Alternatively, ff your application has User Teams and you need to empower Teams of a Roles and Permission system, Confer can do it.
+ 
+Let's say you have a `MyApp\Teams` model you want to add roles to. 
+It just need to extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel` and use the `MicheleAngioni\PhalconConfer\ConferTeamTrait` like so:
+
+```php
+<?php
+
+namespace MyApp;
+
+use MicheleAngioni\PhalconConfer\ConferTeamTrait;
+use MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel;
+
+class Teams extends AbstractConferTeamModel
+{
+    use ConferTeamTrait;
+
+    protected $id;
+
+    protected $name;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 }
 ```
@@ -120,6 +162,8 @@ Thanks to the Phalcon ORM, we can immediatly retrieve all Permission from a Role
 $permissions = $role->getPermissions();
 ```
 
+### User Roles Management  
+
 #### Assigning a Role to a User
 
 Thanks to the ConferTrait, managing roles is extremely simple with Confer
@@ -146,7 +190,7 @@ $roles = $user->getRoles();
 
 #### Checking for a Role
 
-Checking is a User has a specific Role is straightforward
+Checking if a User has a specific Role is straightforward
 
 ```php
 $user->hasRole($roleName);
@@ -160,9 +204,43 @@ Even checking for a specific Permission is super easy
 $user->can($permissionName);
 ```
 
+### Team Roles Management
+
+#### Assigning a Role to a Team
+
+Thanks to the ConferTeamTrait, even Team Roles can be handled without efforts 
+
+```php
+$team->attachRole($idUser, $role);
+```
+
+#### Removing a Role from a Team
+
+In a way similar to the assignment, we can remove it
+
+```php
+$team->detachRole($idUser);
+```
+
+#### Checking for a Role
+
+Checking if a Team User has a specific Role can be done is the same way of a User
+
+```php
+$team->userHasRole($idUser, $roleName);
+```
+
+#### Checking for a Permission
+
+Also checking for a specific Permission is similar 
+
+```php
+$team->userCan($idUser, $permissionName);
+```
+
 ### Middlewares
 
-Once you have set your own Roles and Permission, it's likely you want to protect some of your routes. 
+Once you have set your own Roles and Permissions, it's likely you want to protect some of your routes. 
 The simplest way to achieve that is to use the Match Callback feature of the Phalcon Router. 
 You can easily write your custom RolesMiddleware or you the Confer one.
 
