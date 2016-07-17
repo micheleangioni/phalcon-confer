@@ -2,7 +2,7 @@
 
 namespace MicheleAngioni\PhalconConfer\Models;
 
-class AbstractConferModel extends \Phalcon\Mvc\Model
+abstract class AbstractConferModel extends \Phalcon\Mvc\Model
 {
 
     public function initialize()
