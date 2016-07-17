@@ -76,10 +76,10 @@ class Users extends AbstractConferModel
 
 ### Empowering Teams
 
-Alternatively, ff your application has User Teams and you need to empower Teams of a Roles and Permission system, Confer can do it.
+Alternatively, if your application has User Teams and you need to empower Teams of a Roles and Permission system, Confer can do it.
  
-Let's say you have a `MyApp\Teams` model you want to add roles to. 
-It just need to extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel` and use the `MicheleAngioni\PhalconConfer\ConferTeamTrait` like so:
+Let's say you have also a `MyApp\Teams` model and you want to add roles to Users separately for each Team they belong. 
+You just need to also extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel` and use the `MicheleAngioni\PhalconConfer\ConferTeamTrait` to your Team model like so:
 
 ```php
 <?php
@@ -204,7 +204,7 @@ Even checking for a specific Permission is super easy
 $user->can($permissionName);
 ```
 
-### Team Roles Management
+### Team User Roles Management
 
 #### Assigning a Role to a Team
 
@@ -224,18 +224,20 @@ $team->detachRole($idUser);
 
 #### Checking for a Role
 
-Checking if a Team User has a specific Role can be done is the same way of a User
+Checking if a Team User has a specific Role can be done both from the User and Team models
 
 ```php
+$user->hasRoleInTeam($idTeam, $roleName);
 $team->userHasRole($idUser, $roleName);
 ```
 
 #### Checking for a Permission
 
-Also checking for a specific Permission is similar 
+Also checking for a specific Permission can be performed from both models
 
 ```php
 $team->userCan($idUser, $permissionName);
+$team->canInTeam($idTeam, $permissionName);
 ```
 
 ### Middlewares

@@ -24,5 +24,6 @@
             "MicheleAngioni\\PhalconConfer\\": "src/PhalconConfer"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
