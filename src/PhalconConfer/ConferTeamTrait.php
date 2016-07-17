@@ -84,10 +84,8 @@ trait ConferTeamTrait
                 "users_id" => $idUser
             ]
         ]) as $teamRole) {
-            if ($teamRole->getUsersId() == $idUser) {
-                $teamRole->setRolesId($role->getId());
-                return true;
-            }
+            $teamRole->changeRolesId($role->getId());
+            return true;
         }
 
         // Create the new pivot record
@@ -105,41 +103,42 @@ trait ConferTeamTrait
 
         if (!$result) {
             $errorMessages = implode('. ', $teamRole->getMessages());
-            throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $role->id . ' cannot be attached to user ' . $this->id . '. Error messages: ' . $errorMessages);
+            throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $role->getId() . ' cannot be attached to user ' . $this->getId() . '. Error messages: ' . $errorMessages);
         }
 
         return true;
     }
 
     /**
-     * Detach input Role from the Team.
+     * Detach input User Role from the Team.
      * Return true on success.
      *
-     * @param  Roles $role
+     * @param  int $idUser
      *
      * @throws \RuntimeException
      * @throws \UnexpectedValueException
      *
      * @return bool
      */
-    public function detachRole(Roles $role)
+    public function detachUserRole($idUser)
     {
-        // Check if input Role is attached to the Team
+        // Check if input User Role is attached to the Team
 
-        $rolesPivot = $this->getRolesPivot();
+        foreach ($this->getRolesPivot([
+            "users_id = :users_id:",
+            "bind" => [
+                "users_id" => $idUser
+            ]
+        ]) as $teamRole) {
+            try {
+                $result = $teamRole->delete();
+            } catch (\Exception $e) {
+                throw new \RuntimeException("Caught RuntimeException in " . __METHOD__ . ' at line ' . __LINE__ . ': ' . $e->getMessage());
+            }
 
-        foreach ($rolesPivot as $rolePivot) {
-            if ($rolePivot->getRolesId() == $role->id) {
-                try {
-                    $result = $rolePivot->delete();
-                } catch (\Exception $e) {
-                    throw new \RuntimeException("Caught RuntimeException in " . __METHOD__ . ' at line ' . __LINE__ . ': ' . $e->getMessage());
-                }
-
-                if (!$result) {
-                    $errorMessages = implode('. ', $this->getMessages());
-                    throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $role ' . $role->id . ' cannot be detached from team ' . $this->id . '. Error messages: ' . $errorMessages);
-                }
+            if (!$result) {
+                $errorMessages = implode('. ', $this->getMessages());
+                throw new \UnexpectedValueException("Caught UnexpectedValueException in " . __METHOD__ . ' at line ' . __LINE__ . ': $user ' . $idUser . ' cannot be detached from team ' . $this->getId() . '. Error messages: ' . $errorMessages);
             }
         }
 

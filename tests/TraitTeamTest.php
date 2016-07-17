@@ -39,7 +39,7 @@ class TraitTeamTest extends TestCase
         $team->attachUserRole($user->getId(), $role);
         $this->assertEquals($startingUserTeamsNumber + 1, count($team->getRolesPivot()));
 
-        $team->detachRole($role);
+        $team->detachUserRole($user->getId());
         $team = $teams::findFirst(["id = 2"]);
         $this->assertEquals($startingUserTeamsNumber, count($team->getRolesPivot()));
     }
