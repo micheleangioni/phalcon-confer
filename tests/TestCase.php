@@ -625,4 +625,9 @@ class Teams extends \MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel
         return $this->name;
     }
 
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
 }
