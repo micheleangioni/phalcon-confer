@@ -25,6 +25,32 @@ trait ConferTrait
     }
 
     /**
+     * Check if the User has input Role in input Team.
+     *
+     * @param  int $idTeam
+     * @param  string $roleName
+     *
+     * @return bool
+     */
+    public function hasRoleInTeam($idTeam, $roleName)
+    {
+        foreach ($this->getRolesTeamPivot([
+            "teams_id = :teams_id:",
+            "bind" => [
+                "teams_id" => $idTeam
+            ]
+        ]) as $teamRole) {
+            $role = $teamRole->getRole();
+
+            if ($role->getName() == $roleName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Check if the has input Permission.
      *
      * @param  string $name
@@ -36,6 +62,34 @@ trait ConferTrait
         foreach ($this->getRoles() as $role) {
             foreach ($role->getPermissions() as $permission) {
                 if ($permission->getName() == $name) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the has input Permission.
+     *
+     * @param  int $idTeam
+     * @param  string $permissionName
+     *
+     * @return bool
+     */
+    public function canInTeam($idTeam, $permissionName)
+    {
+        foreach ($this->getRolesTeamPivot([
+            "users_id = :teams_id:",
+            "bind" => [
+                "teams_id" => $idTeam
+            ]
+        ]) as $teamRole) {
+            $role = $teamRole->getRole();
+
+            foreach ($role->getPermissions() as $permission) {
+                if ($permission->getName() == $permissionName) {
                     return true;
                 }
             }

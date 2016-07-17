@@ -22,6 +22,22 @@ abstract class AbstractConferModel extends \Phalcon\Mvc\Model
             'users_id',
             ['alias' => 'rolesPivot']
         );
+
+        $this->hasManyToMany(
+            'id',
+            'MicheleAngioni\PhalconConfer\Models\TeamsRoles',
+            'users_id', 'roles_id',
+            'MicheleAngioni\PhalconConfer\Models\Roles',
+            'id',
+            ['alias' => 'rolesTeam']
+        );
+
+        $this->hasMany(
+            'id',
+            'MicheleAngioni\PhalconConfer\Models\TeamsRoles',
+            'users_id',
+            ['alias' => 'rolesTeamPivot']
+        );
     }
 
     /**

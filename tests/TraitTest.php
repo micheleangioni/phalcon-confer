@@ -53,6 +53,21 @@ class TraitTest extends TestCase
         $this->assertFalse($user->hasRole('Mod'));
     }
 
+    public function testHasRoleInTeam()
+    {
+        $users = new Users();
+        $user = $users::findFirst("id = 1");
+
+        $teams = new Teams();
+        $team = $teams::findFirst(["id = 1"]);
+
+        $role = $user->getRoles()->getFirst();
+
+        $this->assertTrue($user->hasRoleInTeam($team->getId(), $role->getName()));
+        $this->assertFalse($user->hasRoleInTeam($team->getId(), 'Mod'));
+        $this->assertFalse($user->hasRoleInTeam(1000, $role->getName()));
+    }
+
     public function testCan()
     {
         $users = new Users();
@@ -63,5 +78,21 @@ class TraitTest extends TestCase
 
         $this->assertTrue($user->can($permission->getName()));
         $this->assertFalse($user->can('format_the_hd'));
+    }
+
+    public function testCanInTeam()
+    {
+        $users = new Users();
+        $user = $users::findFirst();
+
+        $teams = new Teams();
+        $team = $teams::findFirst(["id = 1"]);
+
+        $role = $user->getRoles()->getFirst();
+        $permission = $role->getPermissions()->getFirst();
+
+        $this->assertTrue($user->canInTeam($team->getId(), $permission->getName()));
+        $this->assertFalse($user->canInTeam($team->getId(), 'format_the_hd'));
+        $this->assertFalse($user->canInTeam(1000, $permission->getName()));
     }
 }
