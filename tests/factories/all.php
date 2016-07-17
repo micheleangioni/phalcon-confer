@@ -16,3 +16,7 @@ $fm->define('MicheleAngioni\PhalconConfer\Models\Roles')->setDefinitions([
 $fm->define('MicheleAngioni\PhalconConfer\Models\Permissions')->setDefinitions([
     'name' => Faker::username()
 ]);
+
+$fm->define('MicheleAngioni\PhalconConfer\Tests\Teams')->setDefinitions([
+    'name' => Faker::city()
+]);

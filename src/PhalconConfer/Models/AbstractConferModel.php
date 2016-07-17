@@ -24,4 +24,9 @@ abstract class AbstractConferModel extends \Phalcon\Mvc\Model
         );
     }
 
+    /**
+     * @return int
+     */
+    abstract public function getId();
+
 }

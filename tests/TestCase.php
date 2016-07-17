@@ -78,6 +78,44 @@ abstract class TestCase extends PhalconTestCase
     protected function migrateTables($connection)
     {
         $connection->createTable(
+            'teams',
+            null,
+            [
+                'columns' => [
+                    new Column(
+                        'id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        ]
+                    ),
+                    new Column(
+                        'name',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 20,
+                            'after' => 'id'
+                        ]
+                    )
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY'),
+                    new Index('username_UNIQUE', ['name'], 'UNIQUE')
+                ],
+                'options' => [
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ]
+            ]
+        );
+
+        $connection->createTable(
             'users',
             null,
             [
@@ -118,7 +156,6 @@ abstract class TestCase extends PhalconTestCase
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '18',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ]
@@ -173,7 +210,6 @@ abstract class TestCase extends PhalconTestCase
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '4',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],
@@ -228,72 +264,6 @@ abstract class TestCase extends PhalconTestCase
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '3',
-                    'ENGINE' => 'InnoDB',
-                    'TABLE_COLLATION' => 'utf8_general_ci'
-                ],
-            ]
-        );
-
-        $connection->createTable(
-            'users_roles',
-            null,
-            [
-                'columns' => [
-                    new Column(
-                        'id',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
-                            'autoIncrement' => true,
-                            'size' => 10,
-                            'first' => true
-                        ]
-                    ),
-                    new Column(
-                        'users_id',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
-                            'size' => 10,
-                            'after' => 'id'
-                        ]
-                    ),
-                    new Column(
-                        'roles_id',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
-                            'size' => 10,
-                            'after' => 'users_id'
-                        ]
-                    ),
-                    new Column(
-                        'created_at',
-                        [
-                            'type' => Column::TYPE_TIMESTAMP,
-                            'size' => 1,
-                            'after' => 'roles_id'
-                        ]
-                    ),
-                    new Column(
-                        'updated_at',
-                        [
-                            'type' => Column::TYPE_TIMESTAMP,
-                            'size' => 1,
-                            'after' => 'created_at'
-                        ]
-                    )
-                ],
-                'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
-                ],
-                'options' => [
-                    'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '6',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],
@@ -358,10 +328,147 @@ abstract class TestCase extends PhalconTestCase
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '4',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],
+            ]
+        );
+
+        $connection->createTable(
+            'users_roles',
+            null,
+            [
+                'columns' => [
+                    new Column(
+                        'id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        ]
+                    ),
+                    new Column(
+                        'users_id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'id'
+                        ]
+                    ),
+                    new Column(
+                        'roles_id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'users_id'
+                        ]
+                    ),
+                    new Column(
+                        'created_at',
+                        [
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'roles_id'
+                        ]
+                    ),
+                    new Column(
+                        'updated_at',
+                        [
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'created_at'
+                        ]
+                    )
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                ],
+                'options' => [
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ],
+            ]
+        );
+
+        $connection->createTable(
+            'teams_roles',
+            null,
+            [
+                'columns' => array(
+                    new Column(
+                        'id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 10,
+                            'first' => true
+                        )
+                    ),
+                    new Column(
+                        'teams_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'id'
+                        )
+                    ),
+                    new Column(
+                        'users_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'teams_id'
+                        )
+                    ),
+                    new Column(
+                        'roles_id',
+                        array(
+                            'type' => Column::TYPE_INTEGER,
+                            'unsigned' => true,
+                            'notNull' => true,
+                            'size' => 10,
+                            'after' => 'teams_id'
+                        )
+                    ),
+                    new Column(
+                        'created_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'roles_id'
+                        )
+                    ),
+                    new Column(
+                        'updated_at',
+                        array(
+                            'type' => Column::TYPE_TIMESTAMP,
+                            'size' => 1,
+                            'after' => 'created_at'
+                        )
+                    )
+                ),
+                'indexes' => array(
+                    new Index('PRIMARY', array('id'), 'PRIMARY')
+                ),
+                'options' => array(
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ),
             ]
         );
     }
@@ -376,8 +483,10 @@ abstract class TestCase extends PhalconTestCase
         $role2 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Roles');
         $permission1 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Permissions');
         $permission2 = static::$fm->create('MicheleAngioni\PhalconConfer\Models\Permissions');
+        $team1 = static::$fm->create('MicheleAngioni\PhalconConfer\Tests\Teams');
+        static::$fm->create('MicheleAngioni\PhalconConfer\Tests\Teams');
 
-        // Create the relationships between them
+        // Attach Permissions to Roles
 
         $rolesPermissions = new \MicheleAngioni\PhalconConfer\Models\RolesPermissions();
         $rolesPermissions->save([
@@ -397,6 +506,8 @@ abstract class TestCase extends PhalconTestCase
             'permissions_id' => $permission2->id
         ]);
 
+        // Attach Roles to Users
+
         $usersRole = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
         $usersRole->save([
             'users_id' => $user1->id,
@@ -408,15 +519,26 @@ abstract class TestCase extends PhalconTestCase
             'users_id' => $user2->id,
             'roles_id' => $role2->id
         ]);
+
+        // Attach Users to Teams
+
+        $teamsRoles = new \MicheleAngioni\PhalconConfer\Models\TeamsRoles();
+        $teamsRoles->save([
+            'teams_id' => $team1->id,
+            'users_id' => $user1->id,
+            'roles_id' => $role1->id
+        ]);
     }
 
     protected function dropTables($connection)
     {
+        $connection->dropTable('teams');
         $connection->dropTable('users');
         $connection->dropTable('roles');
         $connection->dropTable('permissions');
-        $connection->dropTable('users_roles');
         $connection->dropTable('roles_permissions');
+        $connection->dropTable('users_roles');
+        $connection->dropTable('teams_roles');
     }
 
     protected function tearDown()
@@ -481,6 +603,26 @@ class Users extends \MicheleAngioni\PhalconConfer\Models\AbstractConferModel
         $this->password = $password;
 
         return true;
+    }
+
+}
+
+class Teams extends \MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel
+{
+    use \MicheleAngioni\PhalconConfer\ConferTeamTrait;
+
+    protected $id;
+
+    protected $name;
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
 }
