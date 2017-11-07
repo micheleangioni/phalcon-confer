@@ -1,6 +1,6 @@
 {
     "name": "michele-angioni/phalcon-confer",
-    "description": "Roles and Permissions for Phalcon 2 apps.",
+    "description": "Roles and Permissions for PHP Phalcon Framework.",
     "keywords": ["phalcon", "ACL", "roles", "permissions"],
     "license": "MIT",
     "authors": [
@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=5.5",
-        "ext-phalcon": ">=2.0.0"
+        "php": ">=7.1",
+        "ext-phalcon": ">=3.1.2"
     },
     "require-dev": {
         "phalcon/incubator": "dev-master",
