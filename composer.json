@@ -15,9 +15,9 @@
     },
     "require-dev": {
         "phalcon/incubator": "dev-master",
-        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit": "^5.7",
         "league/factory-muffin": "^3.0",
-        "league/factory-muffin-faker": "^1.0"
+        "league/factory-muffin-faker": "^2.0"
     },
     "autoload": {
         "psr-4": {
