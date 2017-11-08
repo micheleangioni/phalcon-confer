@@ -1,6 +1,6 @@
 <?php
 
-namespace Learnph\Tests;
+namespace MicheleAngioni\PhalconConfer\Tests;
 
 use League\FactoryMuffin\Faker\Facade as Faker;
 
