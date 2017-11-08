@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Phalcon Confer, or simply Confer, empowers your app of Roles and Permissions management.   
+Phalcon Confer, or simply Confer, empowers your appplication of a powerful yet flexible Roles and Permissions management system.   
 
 Either Users or User Teams can receive new Roles.
 
@@ -15,9 +15,9 @@ Confer has been highly inspired by the Laravel package [Entrust](https://github.
 
 ## Installation
  
-Confer can be installed through Composer, just include `"michele-angioni/phalcon-confer": "~0.2"` to your composer.json and run `composer update` or `composer install`.
+Confer can be installed through Composer, just include `"michele-angioni/phalcon-confer": "^1.0"` to your composer.json and run `composer update` or `composer install`.
 
-Then you must run the Confer migrations. 
+Then Confer migrations must run to create the needed tables. 
 For this, you need to have installed the [Phalcon Dev Tools](https://github.com/phalcon/phalcon-devtools).
 
 From your Phalcon document root, just run `phalcon migration run --migrations=vendor/michele-angioni/phalcon-confer/migrations` .
@@ -27,7 +27,7 @@ From your Phalcon document root, just run `phalcon migration run --migrations=ve
 ### Empowering Users
 
 Let's say you have a `MyApp\Users` model you want to add roles to. 
-It just need to extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferModel` and use the `MicheleAngioni\PhalconConfer\ConferTrait` like so:
+It just needs to extend `MicheleAngioni\PhalconConfer\Models\AbstractConferModel` and use `MicheleAngioni\PhalconConfer\ConferTrait` like so:
 
 ```php
 <?php
@@ -47,27 +47,27 @@ class Users extends AbstractConferModel
 
     protected $password;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -78,8 +78,8 @@ class Users extends AbstractConferModel
 
 Alternatively, if your application has User Teams and you need to empower Teams of a Roles and Permission system, Confer can do it.
  
-Let's say you have also a `MyApp\Teams` model and you want to add roles to Users separately for each Team they belong. 
-You just need to also extend the `MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel` and use the `MicheleAngioni\PhalconConfer\ConferTeamTrait` to your Team model like so:
+Let's say you also have a `MyApp\Teams` model and you want to add roles to Users separately for each Team they belong. 
+You just need to also extend `MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel` and the `MicheleAngioni\PhalconConfer\ConferTeamTrait` to your Team model like so:
 
 ```php
 <?php
@@ -97,17 +97,17 @@ class Teams extends AbstractConferTeamModel
 
     protected $name;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -242,9 +242,9 @@ $team->canInTeam($idTeam, $permissionName);
 
 ### Middlewares
 
-Once you have set your own Roles and Permissions, it's likely you want to protect some of your routes. 
+Once you have set your own Roles and Permissions, it is likely you want to protect some of your routes. 
 The simplest way to achieve that is to use the Match Callback feature of the Phalcon Router. 
-You can easily write your custom RolesMiddleware or you the Confer one.
+You can easily write your custom RolesMiddleware or use the one included in Confer.
 
 #### Custom Match Callback
 
@@ -274,7 +274,7 @@ class RolesMiddleware extends Plugin
      */
     protected $callbackUri;
 
-    function __construct($roleName, $callbackUri = null)
+    function __construct(string $roleName, $callbackUri = null)
     {
         $this->roleName = $roleName;
 
@@ -284,7 +284,7 @@ class RolesMiddleware extends Plugin
     /**
      * Check if there is an Authenticated User and if he/she has the required Role.
      *
-     * @return bool
+     * @return mixed
      */
     public function check()
     {
@@ -331,12 +331,12 @@ $router->addGet('/super-private-route', [
 ])->beforeMatch([new \MyApp\RolesMiddleware('DEV', '/homepage'), 'check']);
 ```
 
-That's it. If the User hasn't the required Role, he/she will get a 404 error.
+That's it. If the User has not the required Role, he/she will get a 404 error.
 
 #### Confer RolesMiddleware
 
-Conferm comes with an own RolesMiddleware out of the box.
-However, in order to use it, the user authentication must be handled by [Phalcon Auth](https://github.com/micheleangioni/phalcon-auth).
+Confer comes with an own RolesMiddleware out of the box.
+However, in order to use it, the User authentication must be handled by [Phalcon Auth](https://github.com/micheleangioni/phalcon-auth).
 
 Phalcon Auth allow you to easily retrieve the authenticated user by just calling `$auth->getAuth()`.
 
@@ -359,4 +359,3 @@ Pull requests are welcome.
 ## License
 
 Confer is free software distributed under the terms of the MIT license.
-    
