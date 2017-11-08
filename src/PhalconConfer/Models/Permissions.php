@@ -29,6 +29,19 @@ class Permissions extends \Phalcon\Mvc\Model
     protected $updated_at;
 
     /**
+     * Model initialization.
+     */
+    public function initialize()
+    {
+        $this->hasMany(
+            'id',
+            RolesPermissions::class,
+            'permissions_id',
+            ['alias' => 'rolesPivot']
+        );
+    }
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -43,7 +56,7 @@ class Permissions extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return (int)$this->id;
     }
@@ -53,7 +66,7 @@ class Permissions extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -73,7 +86,7 @@ class Permissions extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->created_at;
     }
@@ -83,56 +96,20 @@ class Permissions extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updated_at;
     }
 
     /**
-     * Model initialization.
-     */
-    public function initialize()
-    {
-        $this->hasMany(
-            'id',
-            'MicheleAngioni\PhalconConfer\Models\RolesPermissions',
-            'permissions_id',
-            ['alias' => 'rolesPivot']
-        );
-    }
-
-    /**
      * Delete relationships on cascade before deleting the Role.
+     *
+     * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         $this->getRolesPivot()->delete();
 
         return parent::delete();
     }
-
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return Permissions[]
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return Permissions
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
 }

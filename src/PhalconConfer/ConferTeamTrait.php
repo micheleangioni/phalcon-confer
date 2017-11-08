@@ -4,7 +4,6 @@ namespace MicheleAngioni\PhalconConfer;
 
 use MicheleAngioni\PhalconConfer\Models\Roles;
 use MicheleAngioni\PhalconConfer\Models\TeamsRoles;
-use MicheleAngioni\PhalconConfer\Tests\Users;
 
 trait ConferTeamTrait
 {
@@ -16,7 +15,7 @@ trait ConferTeamTrait
      *
      * @return bool
      */
-    public function userHasRole($idUser, $roleName)
+    public function userHasRole(int $idUser, string $roleName): bool
     {
         foreach ($this->getRolesPivot([
             "users_id = :users_id:",
@@ -26,7 +25,7 @@ trait ConferTeamTrait
         ]) as $teamRole) {
             $role = $teamRole->getRole();
 
-            if ($role->getName() == $roleName) {
+            if ($role->getName() === $roleName) {
                 return true;
             }
         }
@@ -42,7 +41,7 @@ trait ConferTeamTrait
      *
      * @return bool
      */
-    public function userCan($idUser, $permissionName)
+    public function userCan(int $idUser, string $permissionName): bool
     {
         foreach ($this->getRolesPivot([
             "users_id = :users_id:",
@@ -53,7 +52,7 @@ trait ConferTeamTrait
             $role = $teamRole->getRole();
 
             foreach ($role->getPermissions() as $permission) {
-                if ($permission->getName() == $permissionName) {
+                if ($permission->getName() === $permissionName) {
                     return true;
                 }
             }
@@ -74,7 +73,7 @@ trait ConferTeamTrait
      *
      * @return bool
      */
-    public function attachUserRole($idUser, Roles $role)
+    public function attachUserRole(int $idUser, Roles $role): bool
     {
         // Check if input User is already attached to the Team. In case, update it
 
@@ -120,7 +119,7 @@ trait ConferTeamTrait
      *
      * @return bool
      */
-    public function detachUserRole($idUser)
+    public function detachUserRole(int $idUser): bool
     {
         // Check if input User Role is attached to the Team
 

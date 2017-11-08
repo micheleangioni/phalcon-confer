@@ -11,23 +11,24 @@ abstract class AbstractConferTeamModel extends \Phalcon\Mvc\Model
     {
         $this->hasManyToMany(
             'id',
-            'MicheleAngioni\PhalconConfer\Models\TeamsRoles',
-            'teams_id', 'roles_id',
-            'MicheleAngioni\PhalconConfer\Models\Roles',
+            TeamsRoles::class,
+            'teams_id',
+            'roles_id',
+            Roles::class,
             'id',
             ['alias' => 'roles']
         );
 
         $this->hasMany(
             'id',
-            'MicheleAngioni\PhalconConfer\Models\TeamsRoles',
+            TeamsRoles::class,
             'teams_id',
             ['alias' => 'rolesPivot']
         );
     }
 
     /**
-     * @return int
+     * @return string|int
      */
     abstract public function getId();
 

@@ -9,32 +9,34 @@ abstract class AbstractConferModel extends \Phalcon\Mvc\Model
     {
         $this->hasManyToMany(
             'id',
-            'MicheleAngioni\PhalconConfer\Models\UsersRoles',
-            'users_id', 'roles_id',
-            'MicheleAngioni\PhalconConfer\Models\Roles',
+            UsersRoles::class,
+            'users_id',
+            'roles_id',
+            Roles::class,
             'id',
             ['alias' => 'roles']
         );
 
         $this->hasMany(
             'id',
-            'MicheleAngioni\PhalconConfer\Models\UsersRoles',
+            UsersRoles::class,
             'users_id',
             ['alias' => 'rolesPivot']
         );
 
         $this->hasManyToMany(
             'id',
-            'MicheleAngioni\PhalconConfer\Models\TeamsRoles',
-            'users_id', 'roles_id',
-            'MicheleAngioni\PhalconConfer\Models\Roles',
+            TeamsRoles::class,
+            'users_id',
+            'roles_id',
+            Roles::class,
             'id',
             ['alias' => 'rolesTeam']
         );
 
         $this->hasMany(
             'id',
-            'MicheleAngioni\PhalconConfer\Models\TeamsRoles',
+            TeamsRoles::class,
             'users_id',
             ['alias' => 'rolesTeamPivot']
         );
@@ -43,6 +45,6 @@ abstract class AbstractConferModel extends \Phalcon\Mvc\Model
     /**
      * @return int
      */
-    abstract public function getId();
+    abstract public function getId(): int;
 
 }

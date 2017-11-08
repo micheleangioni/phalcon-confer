@@ -27,7 +27,7 @@ class RolesPermissions extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getRolesId()
+    public function getRolesId(): int
     {
         return (int)$this->roles_id;
     }
@@ -37,7 +37,7 @@ class RolesPermissions extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getPermissionsId()
+    public function getPermissionsId(): int
     {
         return (int)$this->permissions_id;
     }
@@ -51,29 +51,4 @@ class RolesPermissions extends \Phalcon\Mvc\Model
     {
         return 'roles_permissions';
     }
-
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return RolesPermissions[]
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return RolesPermissions
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
 }

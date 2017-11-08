@@ -27,7 +27,7 @@ class RolesMiddleware extends Plugin
      */
     protected $callbackUri;
 
-    function __construct($roleName, $callbackUri = null)
+    function __construct(string $roleName, $callbackUri = null)
     {
         $this->roleName = $roleName;
 
@@ -37,7 +37,7 @@ class RolesMiddleware extends Plugin
     /**
      * Check if there is an Authenticated User and if he/she has the required Role.
      *
-     * @return bool
+     * @return mixed
      */
     public function check()
     {

@@ -7,13 +7,12 @@ use MicheleAngioni\PhalconConfer\Models\Roles;
 trait ConferTrait
 {
     /**
-     * Check if the User has input Role.
+     * Check whether the User has input Role.
      *
      * @param  string $name
-     *
      * @return bool
      */
-    public function hasRole($name)
+    public function hasRole(string $name): bool
     {
         foreach ($this->getRoles() as $role) {
             if ($role->getName() == $name) {
@@ -25,14 +24,14 @@ trait ConferTrait
     }
 
     /**
-     * Check if the User has input Role in input Team.
+     * Check whether the User has input Role in input Team.
      *
      * @param  int $idTeam
      * @param  string $roleName
      *
      * @return bool
      */
-    public function hasRoleInTeam($idTeam, $roleName)
+    public function hasRoleInTeam(int $idTeam, string $roleName): bool
     {
         foreach ($this->getRolesTeamPivot([
             "teams_id = :teams_id:",
@@ -54,10 +53,9 @@ trait ConferTrait
      * Check if the has input Permission.
      *
      * @param  string $name
-     *
      * @return bool
      */
-    public function can($name)
+    public function can(string $name): bool
     {
         foreach ($this->getRoles() as $role) {
             foreach ($role->getPermissions() as $permission) {
@@ -78,7 +76,7 @@ trait ConferTrait
      *
      * @return bool
      */
-    public function canInTeam($idTeam, $permissionName)
+    public function canInTeam(int $idTeam, string $permissionName): bool
     {
         foreach ($this->getRolesTeamPivot([
             "users_id = :teams_id:",
@@ -114,7 +112,7 @@ trait ConferTrait
         // Check if input Role is already attached to the User
 
         foreach ($this->getRoles() as $userRole) {
-            if ($userRole->id == $role->id) {
+            if ($userRole->getId() === $role->getId()) {
                 return true;
             }
         }
@@ -154,7 +152,7 @@ trait ConferTrait
         $rolesPivot = $this->getRolesPivot();
 
         foreach ($rolesPivot as $rolePivot) {
-            if ($rolePivot->getRolesId() == $role->id) {
+            if ($rolePivot->getRolesId() === $role->getId()) {
                 try {
                     $result = $rolePivot->delete();
                 } catch (\Exception $e) {

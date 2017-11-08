@@ -23,26 +23,6 @@ class UsersRoles extends \Phalcon\Mvc\Model
     protected $roles_id;
 
     /**
-     * Return the User id.
-     *
-     * @return int
-     */
-    public function getUsersId()
-    {
-        return (int)$this->users_id;
-    }
-
-    /**
-     * Return the Role id.
-     *
-     * @return int
-     */
-    public function getRolesId()
-    {
-        return (int)$this->roles_id;
-    }
-
-    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -53,27 +33,22 @@ class UsersRoles extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Allows to query a set of records that match the specified conditions
+     * Return the User id.
      *
-     * @param mixed $parameters
-     *
-     * @return UsersRoles[]
+     * @return int
      */
-    public static function find($parameters = null)
+    public function getUsersId(): int
     {
-        return parent::find($parameters);
+        return (int)$this->users_id;
     }
 
     /**
-     * Allows to query the first record that match the specified conditions
+     * Return the Role id.
      *
-     * @param mixed $parameters
-     *
-     * @return UsersRoles
+     * @return int
      */
-    public static function findFirst($parameters = null)
+    public function getRolesId(): int
     {
-        return parent::findFirst($parameters);
+        return (int)$this->roles_id;
     }
-
 }

@@ -54,7 +54,7 @@ class TeamsRoles extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getTeamId()
+    public function getTeamId(): int
     {
         return (int)$this->teams_id;
     }
@@ -75,7 +75,7 @@ class TeamsRoles extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getUsersId()
+    public function getUsersId(): int
     {
         return (int)$this->users_id;
     }
@@ -96,7 +96,7 @@ class TeamsRoles extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getRolesId()
+    public function getRolesId(): int
     {
         return (int)$this->roles_id;
     }
@@ -119,34 +119,9 @@ class TeamsRoles extends \Phalcon\Mvc\Model
      * @param  int $rolesId
      * @return bool
      */
-    public function changeRolesId($rolesId)
+    public function changeRolesId($rolesId): bool
     {
         $this->roles_id = $rolesId;
         return $this->save();
     }
-
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return UsersRoles[]
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return UsersRoles
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
 }

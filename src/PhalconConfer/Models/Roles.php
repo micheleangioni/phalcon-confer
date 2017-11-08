@@ -29,6 +29,38 @@ class Roles extends \Phalcon\Mvc\Model
     protected $updated_at;
 
     /**
+     * Model initialization.
+     */
+    public function initialize()
+    {
+        $this->hasManyToMany(
+            'id',
+            RolesPermissions::class,
+            'roles_id',
+            'permissions_id',
+            Permissions::class,
+            'id',
+            ['alias' => 'permissions']
+        );
+
+        // The permissionsPivot relationship is used only when deleting a Role
+        $this->hasMany(
+            'id',
+            RolesPermissions::class,
+            'roles_id',
+            ['alias' => 'permissionsPivot']
+        );
+
+        // The usersPivot relationship is used only when deleting a Role
+        $this->hasMany(
+            'id',
+            UsersRoles::class,
+            'roles_id',
+            ['alias' => 'usersPivot']
+        );
+    }
+
+    /**
      * Returns table name mapped in the model.
      *
      * @return string
@@ -43,7 +75,7 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return (int)$this->id;
     }
@@ -53,7 +85,7 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -73,7 +105,7 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): string
     {
         return $this->created_at;
     }
@@ -83,46 +115,17 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @return string
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): string
     {
         return $this->updated_at;
     }
 
     /**
-     * Model initialization.
-     */
-    public function initialize()
-    {
-        $this->hasManyToMany(
-            'id',
-            'MicheleAngioni\PhalconConfer\Models\RolesPermissions',
-            'roles_id', 'permissions_id',
-            'MicheleAngioni\PhalconConfer\Models\Permissions',
-            'id',
-            ['alias' => 'permissions']
-        );
-
-        // The permissionsPivot relationship is used only when deleting a Role
-        $this->hasMany(
-            'id',
-            'MicheleAngioni\PhalconConfer\Models\RolesPermissions',
-            'roles_id',
-            ['alias' => 'permissionsPivot']
-        );
-
-        // The usersPivot relationship is used only when deleting a Role
-        $this->hasMany(
-            'id',
-            'MicheleAngioni\PhalconConfer\Models\UsersRoles',
-            'roles_id',
-            ['alias' => 'usersPivot']
-        );
-    }
-
-    /**
      * Delete relationships on cascade before deleting the Role.
+     *
+     * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         $this->getPermissionsPivot()->delete();
         $this->getUsersPivot()->delete();
@@ -142,7 +145,7 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @return bool
      */
-    public function attachPermission(Permissions $permission)
+    public function attachPermission(Permissions $permission): bool
     {
         // Check if input Permission is already attached to the Role
 
@@ -180,7 +183,7 @@ class Roles extends \Phalcon\Mvc\Model
      *
      * @return bool
      */
-    public function detachPermission(Permissions $permission)
+    public function detachPermission(Permissions $permission): bool
     {
         // Check if input Permission is attached to the Role
 
@@ -203,29 +206,4 @@ class Roles extends \Phalcon\Mvc\Model
 
         return true;
     }
-
-    /**
-     * Allows to query a set of records that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return Roles[]
-     */
-    public static function find($parameters = null)
-    {
-        return parent::find($parameters);
-    }
-
-    /**
-     * Allows to query the first record that match the specified conditions
-     *
-     * @param mixed $parameters
-     *
-     * @return Roles
-     */
-    public static function findFirst($parameters = null)
-    {
-        return parent::findFirst($parameters);
-    }
-
 }

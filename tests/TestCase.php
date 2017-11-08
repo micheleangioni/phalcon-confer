@@ -576,12 +576,12 @@ class Users extends \MicheleAngioni\PhalconConfer\Models\AbstractConferModel
 
     protected $password;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -593,7 +593,7 @@ class Users extends \MicheleAngioni\PhalconConfer\Models\AbstractConferModel
         return true;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -615,12 +615,12 @@ class Teams extends \MicheleAngioni\PhalconConfer\Models\AbstractConferTeamModel
 
     protected $name;
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
