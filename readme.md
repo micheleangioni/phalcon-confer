@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Phalcon Confer, or simply Confer, empowers your appplication of a powerful yet flexible Roles and Permissions management system.   
+Phalcon Confer, or simply Confer, empowers your application of a powerful yet flexible Roles and Permissions management system.
 
 Either Users or User Teams can receive new Roles.
 
