@@ -3,20 +3,22 @@
 namespace MicheleAngioni\PhalconConfer\Tests;
 
 use League\FactoryMuffin\Faker\Facade as Faker;
+use MicheleAngioni\PhalconConfer\Models\Permissions;
+use MicheleAngioni\PhalconConfer\Models\Roles;
 
-$fm->define('MicheleAngioni\PhalconConfer\Tests\Users')->setDefinitions([
+$fm->define(Users::class)->setDefinitions([
     'email' => Faker::email(),
     'password' => Faker::password()
 ]);
 
-$fm->define('MicheleAngioni\PhalconConfer\Models\Roles')->setDefinitions([
+$fm->define(Roles::class)->setDefinitions([
     'name' => Faker::username()
 ]);
 
-$fm->define('MicheleAngioni\PhalconConfer\Models\Permissions')->setDefinitions([
+$fm->define(Permissions::class)->setDefinitions([
     'name' => Faker::username()
 ]);
 
-$fm->define('MicheleAngioni\PhalconConfer\Tests\Teams')->setDefinitions([
+$fm->define(Teams::class)->setDefinitions([
     'name' => Faker::city()
 ]);
