@@ -5,8 +5,7 @@ namespace MicheleAngioni\PhalconConfer\Middlewares;
 use Phalcon\Mvc\User\Plugin;
 
 /**
- * This middleware need to protect private routes from unauthorized access.
- * Requires the package MicheleAngioni\PhalconAuth.
+ * This middleware aims to protect private routes from unauthorized access.
  *
  * @package MicheleAngioni\PhalconConfer
  */
