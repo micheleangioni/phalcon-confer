@@ -133,7 +133,6 @@ class Roles extends \Phalcon\Mvc\Model
         return parent::delete();
     }
 
-
     /**
      * Attach input Permission to the Role.
      * Return true on success.

@@ -54,15 +54,14 @@ class RolesPermissionsMigration_100 extends Migration
                         'created_at',
                         array(
                             'type' => Column::TYPE_TIMESTAMP,
-                            'size' => 1,
                             'after' => 'permissions_id'
                         )
                     ),
                     new Column(
                         'updated_at',
                         array(
-                            'type' => Column::TYPE_TIMESTAMP,
-                            'size' => 1,
+                            'type'    => Column::TYPE_DATETIME,
+                            'default' => null,
                             'after' => 'created_at'
                         )
                     )
