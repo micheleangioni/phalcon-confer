@@ -2,7 +2,6 @@
 
 namespace MicheleAngioni\PhalconConfer\Middlewares;
 
-use Phalcon\Http\Response;
 use Phalcon\Mvc\User\Plugin;
 
 /**
@@ -21,17 +20,11 @@ class RolesMiddleware extends Plugin
     protected $roleName;
 
     /**
-     * The uri the User will be redirected to if he/she has not the required Role.
-     *
-     * @var string|null
+     * @param string $roleName
      */
-    protected $callbackUri;
-
-    function __construct(string $roleName, $callbackUri = null)
+    function __construct(string $roleName)
     {
         $this->roleName = $roleName;
-
-        $this->callbackUri = $callbackUri;
     }
 
     /**
@@ -51,36 +44,21 @@ class RolesMiddleware extends Plugin
             // Session saved but User not found! Destroy session and redirect
             $auth->logout();
 
-            if ($this->callbackUri) {
-                $response = new Response();
-                return $response->redirect($this->callbackUri);
-            } else {
-                return false;
-            }
+            return false;
         }
 
         // Check if an authenticated User has been found
 
         if (!$user) {
-            // The User is not authenticated, return false or redirect to callbackUri
-            if ($this->callbackUri) {
-                $response = new Response();
-                return $response->redirect($this->callbackUri);
-            } else {
-                return false;
-            }
+            // The User is not authenticated, return false
+            return false;
         }
 
         // Check if the User has the required role
 
         if(!$user->hasRole($this->roleName)) {
-            // The User has not the required role, return false or redirect to callbackUri
-            if ($this->callbackUri) {
-                $response = new Response();
-                return $response->redirect($this->callbackUri);
-            } else {
-                return false;
-            }
+            // The User has not the required role, return false
+            return false;
         }
 
         return true;

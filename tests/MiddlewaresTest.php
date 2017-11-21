@@ -51,20 +51,6 @@ class MiddlewaresTest extends TestCase
         $this->assertFalse($middleware->check());
     }
 
-    public function testRolesMiddlewareFailingWithRedirectNoRole()
-    {
-        $di = $this->getDI();
-
-        $users = new Users();
-        $user = $users::findFirst();
-
-        $this->setAuthMock($di, $user);
-
-        $middleware = new \MicheleAngioni\PhalconConfer\Middlewares\RolesMiddleware('Hacker', 'homepage');
-
-        $this->assertInstanceOf('\Phalcon\Http\Response', $middleware->check());
-    }
-
     protected function setAuthMock(\Phalcon\DiInterface $di, $user = null)
     {
         $di->set('auth', function () use ($user) {

@@ -246,10 +246,10 @@ $team->canInTeam($idTeam, $permissionName);
 ### Middlewares
 
 Once you have set your own Roles and Permissions, it is likely you want to protect some of your routes. 
-The simplest way to achieve that is to use the Match Callback feature of the Phalcon Router. 
+The simplest way to achieve that is to use the Match feature of the Phalcon Router.
 You can easily write your custom RolesMiddleware or use the one included in Confer.
 
-#### Custom Match Callback
+#### Custom Match Middleware
 
 Let's build a custom RolesMiddleware skeleton so you can easily add it to your application
 
@@ -271,17 +271,11 @@ class RolesMiddleware extends Plugin
     protected $roleName;
 
     /**
-     * The uri the User will be redirected to if he/she has not the required Role.
-     *
-     * @var string|null
+     * @param string $roleName
      */
-    protected $callbackUri;
-
-    function __construct(string $roleName, $callbackUri = null)
+    function __construct(string $roleName)
     {
         $this->roleName = $roleName;
-
-        $this->callbackUri = $callbackUri;
     }
 
     /**
@@ -298,25 +292,15 @@ class RolesMiddleware extends Plugin
         // 2) Check if an authenticated User has been found
 
         if (!$user) {
-            // The User is not authenticated, return false or redirect to callbackUri
-            if ($this->callbackUri) {
-                $response = new Response();
-                return $response->redirect($this->callbackUri);
-            } else {
-                return false;
-            }
+            // The User is not authenticated, return false
+            return false;
         }
 
         // 3) We have the authenticated User. Check if he/she has the required role
 
         if(!$user->hasRole($this->roleName)) {
-            // The User has not the required role, return false or redirect to callbackUri
-            if ($this->callbackUri) {
-                $response = new Response();
-                return $response->redirect($this->callbackUri);
-            } else {
-                return false;
-            }
+            // The User has not the required role, return false
+            return false;
         }
 
         return true;
