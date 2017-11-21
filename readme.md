@@ -117,15 +117,58 @@ class Teams extends AbstractConferTeamModel
 }
 ```
 
-### Roles and Permission Management    
-    
-#### Creating a new Role
+### Roles and Permission Management
 
-Creating a new Role is simple and can be done as a standard Phalcon model
+#### The Confer Class
+
+Most of Confer features can be handled through the `Confer` class, which provides a useful gateway to manage Roles and Permissions.
+
+You can create an instance of the Confer class simply with
 
 ```php
-$role = new MicheleAngioni\PhalconConfer\Models\Roles();
-$role->save([
+$confer = new Confer(
+    new RoleService(new Roles()),
+    new PermissionService(new Permissions())
+);
+```
+
+or you can take advantage of Phalcon's Dependency Injection, by defining
+
+```php
+$di->setShared('confer', function () use ($di) {
+    return new Confer(
+     new RoleService(new Roles()),
+     new PermissionService(new Permissions())
+   );
+});
+```
+
+#### Retrieving all Roles and Permissions
+
+Thanks to the `Confer` class retrieving all Roles and Permissions is straightforward
+
+```php
+$roles = $confer->getRoles();
+
+$permissions = $confer->getPermissions();
+```
+
+#### Retrieving a specific Role or Permission
+
+The `Confer` class allows also to search a Role or a Permission by name
+
+```php
+$role = $confer->getRole('Admin');
+
+$permission = $confer->getPermission('manage_roles');
+```
+
+#### Creating a new Role
+
+Creating a new Role is simple and can be done again by using the `Confer` class
+
+```php
+$role = $confer->createRole([
     'name' => 'Admin'
 ]);
 ```
@@ -135,8 +178,7 @@ $role->save([
 Creating a new Permission is done in the same way of a Role
 
 ```php
-$permission = new MicheleAngioni\PhalconConfer\Models\Permissions();
-$permission->save([
+$permission = $confer->createPermission([
     'name' => 'manage_roles'
 ]);
 ```
