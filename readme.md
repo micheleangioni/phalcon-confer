@@ -20,6 +20,9 @@ Confer can be installed through Composer, just include `"michele-angioni/phalcon
 Then Confer migrations must run to create the needed tables. 
 For this, you need to have installed the [Phalcon Dev Tools](https://github.com/phalcon/phalcon-devtools).
 
+Alternatively, [Yarak](https://github.com/zachleigh/yarak) can be used to run the migrations.
+Just copy-paste the migration files into your migration folder and run `php yarak migrate`.
+
 From your Phalcon document root, just run `phalcon migration run --migrations=vendor/michele-angioni/phalcon-confer/migrations` .
 
 ## Usage
