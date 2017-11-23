@@ -35,7 +35,7 @@ class PermissionsMigration_100 extends Migration
                         array(
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 255,
+                            'size' => 100,
                             'after' => 'id'
                         )
                     ),
