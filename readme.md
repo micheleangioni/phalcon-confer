@@ -182,7 +182,17 @@ $permission = $confer->createPermission([
     'name' => 'manage_roles'
 ]);
 ```
-    
+
+#### Deleting a Role or Permission
+
+The `Confer` class is also provided with methods to properly delete Roles and Permissions by id and name.
+
+```php
+$role = $confer->getRole('Admin'); // Also the Role id can be used as parameter
+
+$permission = $confer->getPermission('manage_roles'); // Also the Permission id can be used as parameter
+```
+
 #### Assigning a Permission to a Role
 
 Assigning a Permission to a Role is straightforward
