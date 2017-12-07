@@ -45,15 +45,20 @@ class ModelsTest extends TestCase
         $userRoles = new \MicheleAngioni\PhalconConfer\Models\UsersRoles();
         $userRolesNumberBefore = count($userRoles->find());
 
+        $teamRoles = new \MicheleAngioni\PhalconConfer\Models\TeamsRoles();
+        $teamRolesNumberBefore = count($teamRoles->find());
+
         $roles = new \MicheleAngioni\PhalconConfer\Models\Roles();
         $role = $roles::findFirst();
         $role->delete();
 
         $rolesPermissionsNumberAfter = count($rolesPermissions->find());
         $userRolesNumberAfter = count($userRoles->find());
+        $teamRolesNumberAfter = count($teamRoles->find());
 
         $this->assertLessThan($rolesPermissionsNumberBefore, $rolesPermissionsNumberAfter);
         $this->assertLessThan($userRolesNumberBefore, $userRolesNumberAfter);
+        $this->assertLessThan($teamRolesNumberBefore, $teamRolesNumberAfter);
     }
 
     public function testAttachAndDetachPermission()
