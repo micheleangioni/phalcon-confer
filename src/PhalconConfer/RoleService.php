@@ -29,6 +29,17 @@ class RoleService extends Component
     }
 
     /**
+     * Retrieve and return the input Role.
+     *
+     * @param int $id
+     * @return Roles|false
+     */
+    public function find(int $id)
+    {
+        return $this->model->findFirst(["id = :value:", 'bind' => ['value' => $id]]);
+    }
+
+    /**
      * Retrieve and return the input Role by name.
      *
      * @param string $name

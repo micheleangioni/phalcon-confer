@@ -29,6 +29,17 @@ class PermissionService extends Component
     }
 
     /**
+     * Retrieve and return the input Permission.
+     *
+     * @param int $id
+     * @return Permissions|false
+     */
+    public function find(int $id)
+    {
+        return $this->model->findFirst(["id = :value:", 'bind' => ['value' => $id]]);
+    }
+
+    /**
      * Retrieve and return the input Permission by name.
      *
      * @param string $name

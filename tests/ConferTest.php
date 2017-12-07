@@ -46,6 +46,20 @@ class ConferTest extends TestCase
     {
         $name = 'My Role';
 
+        /** @var Roles $role */
+        $role = static::$fm->create(Roles::class, ['name' => $name]);
+
+        $confer = $this->createConferInstance();
+        $role = $confer->getRole($role->getId());
+
+        $this->assertInstanceOf(Roles::class, $role);
+        $this->assertEquals($name, $role->getName());
+    }
+
+    public function testGetRoleByName()
+    {
+        $name = 'My Role';
+
         static::$fm->create(Roles::class, ['name' => $name]);
 
         $confer = $this->createConferInstance();
@@ -82,6 +96,20 @@ class ConferTest extends TestCase
     }
 
     public function testGetPermission()
+    {
+        $name = 'My Permission';
+
+        /** @var Permissions $permission */
+        $permission = static::$fm->create(Permissions::class, ['name' => $name]);
+
+        $confer = $this->createConferInstance();
+        $permission = $confer->getPermission($permission->getId());
+
+        $this->assertInstanceOf(Permissions::class, $permission);
+        $this->assertEquals($name, $permission->getName());
+    }
+    
+    public function testGetPermissionByName()
     {
         $name = 'My Permission';
 

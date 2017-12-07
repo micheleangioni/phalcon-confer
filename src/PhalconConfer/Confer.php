@@ -37,14 +37,18 @@ class Confer extends Component
     }
 
     /**
-     * Retrieve and return the input Role by name.
+     * Retrieve and return the input Role by id or name.
      *
-     * @param string $name
+     * @param int|string $name
      * @return Roles|false
      */
-    public function getRole(string $name)
+    public function getRole($name)
     {
-        return $this->roleService->findByName($name);
+        if (is_int($name)) {
+            return $this->roleService->find($name);
+        } else {
+            return $this->roleService->findByName($name);
+        }
     }
 
     /**
@@ -73,14 +77,18 @@ class Confer extends Component
     }
 
     /**
-     * Retrieve and return the input Permission by name.
+     * Retrieve and return the input Permission by id or name.
      *
-     * @param string $name
+     * @param int|string $name
      * @return Permissions|false
      */
-    public function getPermission(string $name)
+    public function getPermission($name)
     {
-        return $this->permissionService->findByName($name);
+        if (is_int($name)) {
+            return $this->permissionService->find($name);
+        } else {
+            return $this->permissionService->findByName($name);
+        }
     }
 
     /**
