@@ -42,7 +42,7 @@ class ConferTest extends TestCase
         $this->assertInstanceOf(Roles::class, $roles[0]);
     }
 
-    public function testGetRole()
+    public function testGetAndDeleteRole()
     {
         $name = 'My Role';
 
@@ -54,9 +54,16 @@ class ConferTest extends TestCase
 
         $this->assertInstanceOf(Roles::class, $role);
         $this->assertEquals($name, $role->getName());
+
+        $result = $confer->deleteRole($role->getId());
+        $this->assertTrue($result);
+        $this->assertFalse($confer->getRole($role->getId()));
+
+        $result = $confer->deleteRole($role->getId());
+        $this->assertFalse($result);
     }
 
-    public function testGetRoleByName()
+    public function testGetAndDeleteRoleByName()
     {
         $name = 'My Role';
 
@@ -67,6 +74,13 @@ class ConferTest extends TestCase
 
         $this->assertInstanceOf(Roles::class, $role);
         $this->assertEquals($name, $role->getName());
+
+        $result = $confer->deleteRole($role->getName());
+        $this->assertTrue($result);
+        $this->assertFalse($confer->getRole($role->getName()));
+
+        $result = $confer->deleteRole($role->getName());
+        $this->assertFalse($result);
     }
 
     public function testCreateRole()
@@ -95,7 +109,7 @@ class ConferTest extends TestCase
         $this->assertInstanceOf(Permissions::class, $permissions[0]);
     }
 
-    public function testGetPermission()
+    public function testGetAndDeletePermission()
     {
         $name = 'My Permission';
 
@@ -107,9 +121,16 @@ class ConferTest extends TestCase
 
         $this->assertInstanceOf(Permissions::class, $permission);
         $this->assertEquals($name, $permission->getName());
+
+        $result = $confer->deletePermission($permission->getId());
+        $this->assertTrue($result);
+        $this->assertFalse($confer->getPermission($permission->getId()));
+
+        $result = $confer->deletePermission($permission->getId());
+        $this->assertFalse($result);
     }
     
-    public function testGetPermissionByName()
+    public function testGetAndDeletePermissionByName()
     {
         $name = 'My Permission';
 
@@ -120,6 +141,13 @@ class ConferTest extends TestCase
 
         $this->assertInstanceOf(Permissions::class, $permission);
         $this->assertEquals($name, $permission->getName());
+
+        $result = $confer->deletePermission($permission->getName());
+        $this->assertTrue($result);
+        $this->assertFalse($confer->getPermission($permission->getName()));
+
+        $result = $confer->deletePermission($permission->getName());
+        $this->assertFalse($result);
     }
 
     public function testCreatePermission()

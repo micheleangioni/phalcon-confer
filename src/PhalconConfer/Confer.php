@@ -67,6 +67,20 @@ class Confer extends Component
     }
 
     /**
+     * Delete input Role.
+     * Return true on success, false on failure or if Role has not been found.
+     *
+     * @param int|string $role
+     * @return bool
+     */
+    public function deleteRole($role): bool
+    {
+        $role = $this->getRole($role);
+
+        return $role ? $role->delete() : false;
+    }
+
+    /**
      * Return all Permissions.
      *
      * @return ResultsetInterface
@@ -104,5 +118,19 @@ class Confer extends Component
         return $this->permissionService->createNew([
             'name' => $name
         ]);
+    }
+
+    /**
+     * Delete input Permission.
+     * Return true on success, false on failure or if Permission has not been found.
+     *
+     * @param int|string $permission
+     * @return bool
+     */
+    public function deletePermission($permission): bool
+    {
+        $permission = $this->getPermission($permission);
+
+        return $permission ? $permission->delete() : false;
     }
 }
