@@ -155,12 +155,12 @@ $permissions = $confer->getPermissions();
 
 #### Retrieving a specific Role or Permission
 
-The `Confer` class allows also to search a Role or a Permission by name
+The `Confer` class allows also to search a Role or a Permission by both id and name
 
 ```php
-$role = $confer->getRole('Admin');
+$role = $confer->getRole('Admin'); // Also the Role id can be used as parameter
 
-$permission = $confer->getPermission('manage_roles');
+$permission = $confer->getPermission('manage_roles'); // Also the Permission id can be used as parameter
 ```
 
 #### Creating a new Role
