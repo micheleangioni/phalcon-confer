@@ -2,6 +2,12 @@ language: php
 
 php:
   - 7.1
+  - 7.2
+  - nightly
+
+matrix:
+  allow_failures:
+    - php: nightly
 
 before_script:
   - git clone git://github.com/phalcon/cphalcon.git $TRAVIS_BUILD_DIR/vendor/cphalcon
